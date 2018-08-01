@@ -1,0 +1,19 @@
+﻿
+@using (Html.BeginRouteForm(new
+{
+    controller = "Product",
+    action = "List",
+    category = ViewBag.SelectedCategory,
+    page = 1
+}))
+{
+    <div class="item">
+        <label>Find</label>
+        @Html.TextBox("nameFilter", (string)TempData["nameFilter"])
+    </div>
+    <div class="item">
+        <label>Find in description</label>
+        @Html.CheckBox("findInDescription", (bool?)TempData["findInDescription"] ?? false)
+    </div>
+    <input type="submit" value="Отправить" />
+}
