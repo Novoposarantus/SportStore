@@ -22,6 +22,9 @@
             <div class="visible-xs">SPORTS</div>
             <div class="visible-xs">STORE</div>
         </a>
+        <div class="text-danger">
+            @User.Identity.Name
+        </div>
         @Html.Action("Summary", "Cart")
     </div>
     <div class="visible-xs">
@@ -36,6 +39,16 @@
                     <input type="submit" class="btn btn-success" value="Log out" />
                 </div>
             }
+            if (User.Identity.Name == "admin")
+            {
+
+                using (Html.BeginForm("Create", "Admin"))
+                {
+                    <div class="pull-left">
+                        <input type="submit" class="btn btn-success" value="Create new Product" />
+                    </div>
+                }
+            }
         }
         else
         {
@@ -45,9 +58,9 @@
                     <input type="submit" class="btn btn-success" value="Log In" />
                 </div>
             }*@
-                <div class="pull-right">
-                    @Html.ActionLink("Log In", "Login", "Account")
-                </div>
+            <div class="pull-right">
+                @Html.ActionLink("Log In", "Login", "Account",null, new { @class = "btn btn-success" })
+            </div>
         }
     </div>
     <div class="row panel">

@@ -23,19 +23,11 @@
     }
     @if (User.Identity.IsAuthenticated && User.Identity.Name == "admin")
     {
-        using (Html.BeginForm("Edit", "Admin", new { Model.ProductID }))
-        {
-            <div class="pull-right">
-                @Html.HiddenFor(x => x.ProductID)
-                @Html.Hidden("returnUrl", Request.Url.PathAndQuery)
-                <input type="submit" class="btn btn-success" value="Edite" />
-            </div>
-        }
+        
+        @Html.ActionLink("Edit","Edit","Admin", new { Model.ProductID }, new { @class = "btn btn-success pull-right" })
         using (Html.BeginForm("Delete", "Admin", new { Model.ProductID }))
         {
             <div class="pull-right">
-                @Html.HiddenFor(x => x.ProductID)
-                @Html.Hidden("returnUrl", Request.Url.PathAndQuery)
                 <input type="submit" class="btn btn-success" value="Delete" />
             </div>
         }

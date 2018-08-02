@@ -16,6 +16,7 @@ namespace WebUI.Controllers
             this.repository = repository;
         }
         [Route("Edit")]
+        [Authorize()]
         public ViewResult Edit(int productID)
         {
             Product product = repository.Products.FirstOrDefault(p => p.ProductID == productID);

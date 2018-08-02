@@ -52,18 +52,18 @@ namespace WebUI.Controllers
             if (ModelState.IsValid)
             {
                 User user = null;
-                using (var db = new UserContext())
+                using (var dbEntry = new UserContext())
                 {
-                    user = db.Users.FirstOrDefault(u => u.Email == model.Login);
+                    user = dbEntry.Users.FirstOrDefault(u => u.Email == model.Login);
                 }
                 if (user == null)
                 {
-                    using (var db = new UserContext())
+                    using (var dbEntry = new UserContext())
                     {
-                        db.Users.Add(new User { Email = model.Login, Password = model.Password, Age = model.Age });
-                        db.SaveChanges();
+                        dbEntry.Users.Add(new User { Email = model.Login, Password = model.Password, Age = model.Age });
+                        dbEntry.SaveChanges();
 
-                        user = db.Users.Where(u => u.Email == model.Login && u.Password == model.Password).FirstOrDefault();
+                        user = dbEntry.Users.Where(u => u.Email == model.Login && u.Password == model.Password).FirstOrDefault();
                     }
                     if (user != null)
                     {
