@@ -13,7 +13,6 @@
         <strong>@Model.Name</strong>
         <span class="pull-right label label-primary">@Model.Price.ToString("c")</span>
     </h3>
-
     @using (Html.BeginForm("AddToCart", "Cart"))
     {
         <div class="pull-right">
@@ -21,6 +20,25 @@
             @Html.Hidden("returnUrl", Request.Url.PathAndQuery)
             <input type="submit" class="btn btn-success" value="Add to cart" />
         </div>
+    }
+    @if (User.Identity.IsAuthenticated && User.Identity.Name == "admin")
+    {
+        using (Html.BeginForm("Edit", "Admin", new { Model.ProductID }))
+        {
+            <div class="pull-right">
+                @Html.HiddenFor(x => x.ProductID)
+                @Html.Hidden("returnUrl", Request.Url.PathAndQuery)
+                <input type="submit" class="btn btn-success" value="Edite" />
+            </div>
+        }
+        using (Html.BeginForm("Delete", "Admin", new { Model.ProductID }))
+        {
+            <div class="pull-right">
+                @Html.HiddenFor(x => x.ProductID)
+                @Html.Hidden("returnUrl", Request.Url.PathAndQuery)
+                <input type="submit" class="btn btn-success" value="Delete" />
+            </div>
+        }
     }
     <span class="lead"> @Model.Description</span>
 </div>

@@ -15,11 +15,6 @@ namespace WebUI.Controllers
         {
             this.repository = repository;
         }
-        [Route("ProductList")]
-        public ViewResult Index()
-        {
-            return View(repository.Products);
-        }
         [Route("Edit")]
         public ViewResult Edit(int productID)
         {
@@ -39,8 +34,9 @@ namespace WebUI.Controllers
                     image.InputStream.Read(product.ImageData, 0, image.ContentLength);
                 }
                 repository.SaveProduct(product);
-                TempData["message"] = string.Format($"{product.Name} has been saved");
-                return RedirectToAction("Index");
+                //Сообщение о редактировании
+                //TempData["message"] = string.Format($"{product.Name} has been saved");
+                return RedirectToAction("List","Product");
             }
             else
             {
@@ -55,11 +51,12 @@ namespace WebUI.Controllers
         public ActionResult Delete(int productID)
         {
             Product deletedProduct = repository.DeleteProduct(productID);
-            if (deletedProduct != null)
-            {
-                TempData["message"] = string.Format($"{deletedProduct.Name} was deleted");
-            }
-            return RedirectToAction("Index");
+            //Сообщение об удалении
+            //if (deletedProduct != null)
+            //{
+            //    TempData["message"] = string.Format($"{deletedProduct.Name} was deleted");
+            //}
+            return RedirectToAction("List", "Product");
         }
     }
 }
