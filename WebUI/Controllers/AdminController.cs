@@ -6,20 +6,21 @@ using Domain.Entities;
 
 namespace WebUI.Controllers
 {
-    [Authorize]
-    [RoutePrefix("AdministrationMenu")]
+    [Authorize(Roles = "admin, moderator")]
+    [RoutePrefix("Moderation")]
     public class AdminController : Controller
     {
-        IProductRepository repository;
-        public AdminController(IProductRepository repository)
+        IProductRepository productRepository;
+        IUsersRepository userRepository;
+        public AdminController(IProductRepository productRepository, IUsersRepository userRepository)
         {
-            this.repository = repository;
+            this.productRepository = productRepository;
+            this.userRepository = userRepository;
         }
         [Route("Edit")]
-        [Authorize()]
         public ViewResult Edit(int productID)
         {
-            Product product = repository.Products.FirstOrDefault(p => p.ProductID == productID);
+            Product product = productRepository.Products.FirstOrDefault(p => p.ProductID == productID);
             return View(product);
         }
         [HttpPost]
@@ -34,7 +35,7 @@ namespace WebUI.Controllers
                     product.ImageData = new byte[image.ContentLength];
                     image.InputStream.Read(product.ImageData, 0, image.ContentLength);
                 }
-                repository.SaveProduct(product);
+                productRepository.SaveProduct(product);
                 //Сообщение о редактировании
                 //TempData["message"] = string.Format($"{product.Name} has been saved");
                 return RedirectToAction("List","Product");
@@ -44,6 +45,7 @@ namespace WebUI.Controllers
                 return View(product);
             }
         }
+        [Route("Create")]
         public ViewResult Create()
         {
             return View("Edit", new Product());
@@ -51,13 +53,27 @@ namespace WebUI.Controllers
         [HttpPost]
         public ActionResult Delete(int productID)
         {
-            Product deletedProduct = repository.DeleteProduct(productID);
+            Product deletedProduct = productRepository.DeleteProduct(productID);
             //Сообщение об удалении
             //if (deletedProduct != null)
             //{
             //    TempData["message"] = string.Format($"{deletedProduct.Name} was deleted");
             //}
             return RedirectToAction("List", "Product");
+        }
+        [Authorize(Roles = "admin")]
+        [Route("~/Administration/ListUsers")]
+        public ViewResult ListUsers()
+        {
+            return View(userRepository.Users);
+        }
+        [HttpPost]
+        [Authorize(Roles = "admin")]
+        public ActionResult ChangeRole(int userId, int newRoleId)
+        {
+            User user = userRepository.ChangeRole(userId, newRoleId); 
+            //Сообщение об изменении роли
+            return RedirectToAction("ListUsers", "Admin");
         }
     }
 }

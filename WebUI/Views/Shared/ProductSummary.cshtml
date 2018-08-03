@@ -21,7 +21,7 @@
             <input type="submit" class="btn btn-success" value="Add to cart" />
         </div>
     }
-    @if (User.Identity.IsAuthenticated && User.Identity.Name == "admin")
+    @if (User.Identity.IsAuthenticated && (User.IsInRole("admin") || User.IsInRole("moderator")))
     {
         
         @Html.ActionLink("Edit","Edit","Admin", new { Model.ProductID }, new { @class = "btn btn-success pull-right" })

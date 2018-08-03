@@ -5,9 +5,9 @@ using System.Data.Entity;
 using Domain.Concrete;
 using Domain.Entities;
 
-namespace CustomRoleProviderApp.Providers
+namespace WebUI.Providers
 {
-    public class CustomRoleProvider : RoleProvider
+    public class StoreRoleProvider : RoleProvider
     {
         public override string[] GetRolesForUser(string username)
         {

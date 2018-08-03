@@ -30,6 +30,7 @@ namespace WebUI.Infrastructure
         void AddBindings()
         {
             kernel.Bind<IProductRepository>().To<EFProductRepository>();
+            kernel.Bind<IUsersRepository>().To<UsersRepository>();
             var emailSettings = new EmailSettings
             {
                 WriteAsFile = bool.Parse(ConfigurationManager.AppSettings["Email.WriteAsFile"] ?? "false")
