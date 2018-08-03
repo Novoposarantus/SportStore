@@ -12,7 +12,7 @@ namespace WebUI.Providers
         public override string[] GetRolesForUser(string username)
         {
             string[] roles = new string[] { };
-            using (UserContext db = new UserContext())
+            using (SportsStoreContext db = new SportsStoreContext())
             {
                 User user = db.Users.Include(u => u.Role).FirstOrDefault(u => u.Email == username);
                 if (user != null && user.Role != null)
@@ -24,7 +24,7 @@ namespace WebUI.Providers
         }
         public override bool IsUserInRole(string username, string roleName)
         {
-            using (UserContext db = new UserContext())
+            using (SportsStoreContext db = new SportsStoreContext())
             {
                 User user = db.Users.Include(u => u.Role).FirstOrDefault(u => u.Email == username);
 

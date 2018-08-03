@@ -7,7 +7,7 @@ namespace Domain.Concrete
 {
     public class UsersRepository : IUsersRepository
     {
-        UserContext dbEntry = new UserContext();
+        SportsStoreContext dbEntry = new SportsStoreContext();
         public IEnumerable<User> Users { get { return dbEntry.Users; } }
 
         public User ChangeRole(int userId, int newRoleId)

@@ -18,13 +18,15 @@ namespace WebUI
             ModelBinders.Binders.Add(typeof(Cart), new CartModelBinder());
         }
     }
-    public class UserDbInitializer : DropCreateDatabaseAlways<UserContext>
+    public class UserDbInitializer : DropCreateDatabaseAlways<SportsStoreContext>
     {
-        protected override void Seed(UserContext db)
+        protected override void Seed(SportsStoreContext db)
         {
             Role admin = new Role { Name = "admin" };
             Role user = new Role { Name = "user" };
+            Role moderator = new Role { Name = "moderator" };
             db.Roles.Add(admin);
+            db.Roles.Add(moderator);
             db.Roles.Add(user);
             db.Users.Add(new User
             {

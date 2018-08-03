@@ -7,19 +7,19 @@ namespace WebUI.Controllers
 {
     public class NavController : Controller
     {
-        IProductRepository respository;
+        IProductRepository repository;
         
         public NavController(IProductRepository respository)
         {
-            this.respository = respository;
+            this.repository = respository;
         }
         public PartialViewResult Menu(string category = null)
         {
             ViewBag.SelectedCategory = category;
-            IEnumerable<string> categories = respository.Products
-                .Select(x => x.Category)
-                .Distinct()
-                .OrderBy(x => x);
+            IEnumerable<string> categories = repository.Products
+                .Select(x => x.Category);
+                /*.Distinct()
+                .OrderBy(x => x);*/
             return PartialView("FlexMenu",categories);
         }
     }

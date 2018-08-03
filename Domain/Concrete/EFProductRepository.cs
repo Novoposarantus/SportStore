@@ -6,7 +6,7 @@ namespace Domain.Concrete
 {
     public class EFProductRepository: IProductRepository
     {
-        EFDbContext context = new EFDbContext();
+        SportsStoreContext context = new SportsStoreContext();
 
         public IEnumerable<Product> Products
         {

@@ -17,7 +17,7 @@
 </head>
 <body>
     <div class="navbar navbar-inverse">
-        <a class="navbar-brand" href="#">
+        <a class="navbar-brand" href="~/">
             <span class="hidden-xs">SPORTS STORE</span>
             <div class="visible-xs">SPORTS</div>
             <div class="visible-xs">STORE</div>
@@ -31,37 +31,7 @@
         @Html.Action("Menu", "Nav", new { horizontalLayout = true })
     </div>
     <div class="navbar">
-        @if (User.Identity.IsAuthenticated)
-        {
-            using (Html.BeginForm("Logoff", "Account"))
-            {
-                <div class="pull-right">
-                    <input type="submit" class="btn btn-success" value="Log out" />
-                </div>
-            }
-            if (User.IsInRole("admin") || User.IsInRole("moderator"))
-            {
-
-                using (Html.BeginForm("Create", "Admin"))
-                {
-                    <div class="pull-left">
-                        <input type="submit" class="btn btn-success" value="Create new Product" />
-                    </div>
-                }
-                if (User.IsInRole("admin"))
-                {
-                    <div class="pull-left">
-                        @Html.ActionLink("List Users", "ListUsers", "Admin", null, new { @class = "btn btn-success" })
-                    </div>
-                }
-            }
-        }
-        else
-        {
-            <div class="pull-right">
-                @Html.ActionLink("Log In", "Login", "Account",null, new { @class = "btn btn-success" })
-            </div>
-        }
+        @Html.Action("Authentication", "Account")
     </div>
     <div class="row panel">
         <div class="col-sm-3 hidden-xs">

@@ -23,7 +23,7 @@ namespace WebUI.Controllers
             if (ModelState.IsValid)
             {
                 User user = null;
-                using (var dbEntry = new UserContext())
+                using (var dbEntry = new SportsStoreContext())
                 {
                     user = dbEntry.Users.FirstOrDefault(u => u.Email == model.Login && u.Password == model.Password);
                 }
@@ -52,13 +52,13 @@ namespace WebUI.Controllers
             if (ModelState.IsValid)
             {
                 User user = null;
-                using (var dbEntry = new UserContext())
+                using (var dbEntry = new SportsStoreContext())
                 {
                     user = dbEntry.Users.FirstOrDefault(u => u.Email == model.Login);
                 }
                 if (user == null)
                 {
-                    using (var dbEntry = new UserContext())
+                    using (var dbEntry = new SportsStoreContext())
                     {
                         dbEntry.Users.Add(new User { Email = model.Login, Password = model.Password, Age = model.Age, RoleId = 3 });
                         dbEntry.SaveChanges();
@@ -83,6 +83,10 @@ namespace WebUI.Controllers
         {
             FormsAuthentication.SignOut();
             return RedirectToAction("List", "Product");
+        }
+        public PartialViewResult Authentication()
+        {
+            return PartialView();
         }
     }
 }

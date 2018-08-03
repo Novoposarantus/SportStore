@@ -3,8 +3,11 @@ using System.Data.Entity;
 
 namespace Domain.Concrete
 {
-    class EFDbContext : DbContext
+    public class SportsStoreContext : DbContext
     {
+        public DbSet<User> Users { get; set; }
+        public DbSet<Role> Roles { get; set; }
         public DbSet<Product> Products { get; set; }
     }
+
 }
