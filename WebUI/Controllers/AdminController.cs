@@ -69,9 +69,9 @@ namespace WebUI.Controllers
         }
         [HttpPost]
         [Authorize(Roles = "admin")]
-        public ActionResult ChangeRole(int userId, int newRoleId)
+        public ActionResult ChangeRole(int userId, string roleName)
         {
-            User user = userRepository.ChangeRole(userId, newRoleId); 
+            User user = userRepository.ChangeRole(userId, roleName); 
             //Сообщение об изменении роли
             return RedirectToAction("ListUsers", "Admin");
         }

@@ -60,7 +60,7 @@ namespace WebUI.Controllers
                 {
                     using (var dbEntry = new SportsStoreContext())
                     {
-                        dbEntry.Users.Add(new User { Email = model.Login, Password = model.Password, Age = model.Age, RoleId = 3 });
+                        dbEntry.Users.Add(new User { Email = model.Login, Password = model.Password, Age = model.Age, Role = new Role() {Name = "user" } });
                         dbEntry.SaveChanges();
 
                         user = dbEntry.Users.Where(u => u.Email == model.Login && u.Password == model.Password).FirstOrDefault();
