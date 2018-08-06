@@ -17,9 +17,9 @@ namespace WebUI.Controllers
         {
             ViewBag.SelectedCategory = category;
             IEnumerable<string> categories = repository.Products
-                .Select(x => x.Category);
-                /*.Distinct()
-                .OrderBy(x => x);*/
+                .Select(x => x.Category)
+                .Distinct()
+                .OrderBy(x => x);
             return PartialView("FlexMenu",categories);
         }
     }

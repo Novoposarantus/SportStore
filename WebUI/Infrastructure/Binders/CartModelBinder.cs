@@ -1,5 +1,7 @@
 ﻿using System.Web.Mvc;
 using Domain.Entities;
+using System.Web.Security;
+using System.Web;
 
 namespace WebUI.Infrastructure.Binders
 {
@@ -10,7 +12,7 @@ namespace WebUI.Infrastructure.Binders
         {
             if (controllerContext.HttpContext.Session != null)
             {
-                return controllerContext.HttpContext.Session[sessionKey] = controllerContext.HttpContext.Session[sessionKey] ?? new Cart();
+                return controllerContext.HttpContext.Session[HttpContext.Current.User.Identity.Name] = controllerContext.HttpContext.Session[HttpContext.Current.User.Identity.Name] ?? new Cart();
             }
             return new Cart();
         }
