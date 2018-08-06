@@ -2,11 +2,13 @@
 using System.Web.Mvc;
 using System.Web;
 using System.Linq;
+using System.Data.Entity;
 using Domain.Entities;
+using WebUI.CustomAttributes;
 
 namespace WebUI.Controllers
 {
-    [Authorize(Roles = "admin, moderator")]
+    [AutorizeRoles(RoleNames.Admin,RoleNames.Moderator)]
     [RoutePrefix("Moderation")]
     public class AdminController : Controller
     {
@@ -61,14 +63,14 @@ namespace WebUI.Controllers
             //}
             return RedirectToAction("List", "Product");
         }
-        [Authorize(Roles = "admin")]
+        [AutorizeRoles(RoleNames.Admin)]
         [Route("~/Administration/ListUsers")]
         public ViewResult ListUsers()
         {
-            return View(userRepository.Users);
+            return View(userRepository.Users.Include(p => p.Role));
         }
         [HttpPost]
-        [Authorize(Roles = "admin")]
+        [AutorizeRoles(RoleNames.Admin)]
         public ActionResult ChangeRole(int userId, string roleName)
         {
             User user = userRepository.ChangeRole(userId, roleName); 

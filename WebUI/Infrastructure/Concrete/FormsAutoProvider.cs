@@ -12,7 +12,8 @@ namespace WebUI.Infrastructure.Concrete
             {
                 FormsAuthentication.SetAuthCookie(username, false);
             }
-            return result;
+            return result;
+
         }
     }
 }

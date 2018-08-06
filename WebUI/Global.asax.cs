@@ -18,6 +18,7 @@ namespace WebUI
             ModelBinders.Binders.Add(typeof(Cart), new CartModelBinder());
         }
     }
+    
     public class UserDbInitializer : DropCreateDatabaseAlways<SportsStoreContext>
     {
         protected override void Seed(SportsStoreContext db)

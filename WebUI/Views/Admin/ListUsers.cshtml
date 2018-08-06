@@ -1,4 +1,5 @@
-﻿@model IEnumerable<Domain.Entities.User>
+﻿@using Domain.Entities;
+@model IEnumerable<Domain.Entities.User>
 
 @{
     ViewBag.Title = "List Users";
@@ -19,31 +20,31 @@
             </tr>
             @foreach (var item in Model)
             {
-            <tr>
-                <td class="text-center">@item.Id</td>
-                <td class="text-center">@item.Email</td>
-                <td class="text-center">@item.Age</td>
-                <td class="text-left">@item.Role.Name
-                    @if (item.Role.Name != "admin")
+                <tr>
+                    <td class="text-center">@item.Id</td>
+                    <td class="text-center">@item.Email</td>
+                    <td class="text-center">@item.Age</td>
+                    <td class="text-left">@item.Role.Name
+                    @if (item.Role.Name != RoleNames.Admin)
                     {
-                        if (item.Role.Name == "moderator")
+                        if (item.Role.Name == RoleNames.Moderator)
                         {
-                            using (Html.BeginForm("ChangeRole", "Admin", new { userId = item.Id, roleName =  "user" }))
+                            using (Html.BeginForm("ChangeRole", "Admin", new { userId = item.Id, roleName = RoleNames.User }))
                             {
                                 <input type="submit" class="btn btn-success pull-right" value="Set to User" />
                             }
                         }
                         else
                         {
-                            using (Html.BeginForm("ChangeRole", "Admin", new { userId = item.Id, roleName = "moderator" }))
+                            using (Html.BeginForm("ChangeRole", "Admin", new { userId = item.Id, roleName = RoleNames.Moderator }))
                             {
-                                    <input type="submit" class="btn btn-success pull-right" value="Set to Moderator" />
+                                <input type="submit" class="btn btn-success pull-right" value="Set to Moderator" />
                             }
                         }
                     }
                 </td>
             </tr>
-                    }
+        }
         </table>
     </div>
     <div class="panel-footer">

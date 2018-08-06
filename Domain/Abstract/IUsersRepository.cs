@@ -1,12 +1,13 @@
 ﻿using Domain.Concrete;
 using Domain.Entities;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Domain.Abstract
 {
      public interface IUsersRepository
     {
-        IEnumerable<User> Users { get; }
+        IQueryable<User> Users { get; }
         User ChangeRole(int userId, string roleName);
     }
 }

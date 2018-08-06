@@ -29,7 +29,7 @@ namespace WebUI.Infrastructure
         }
         void AddBindings()
         {
-            kernel.Bind<IProductRepository>().To<EFProductRepository>();
+            kernel.Bind<IProductRepository>().To<ProductRepository>();
             kernel.Bind<IUsersRepository>().To<UsersRepository>();
             var emailSettings = new EmailSettings
             {

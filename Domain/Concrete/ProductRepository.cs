@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Domain.Concrete
 {
-    public class EFProductRepository: IProductRepository
+    public class ProductRepository: IProductRepository
     {
         SportsStoreContext context = new SportsStoreContext();
 
