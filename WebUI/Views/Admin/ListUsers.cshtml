@@ -25,18 +25,18 @@
                     <td class="text-center">@item.Email</td>
                     <td class="text-center">@item.Age</td>
                     <td class="text-left">@item.Role.Name
-                    @if (item.Role.Name != RoleNames.Admin)
+                    @if (item.Role.Id != (int)DefaultRoles.Admin)
                     {
-                        if (item.Role.Name == RoleNames.Moderator)
+                        if (item.Role.Id == (int)DefaultRoles.Moderator)
                         {
-                            using (Html.BeginForm("ChangeRole", "Admin", new { userId = item.Id, roleName = RoleNames.User }))
+                            using (Html.BeginForm("ChangeRole", "Admin", new { user = item.Email, role = DefaultRoles.User }))
                             {
                                 <input type="submit" class="btn btn-success pull-right" value="Set to User" />
                             }
                         }
                         else
                         {
-                            using (Html.BeginForm("ChangeRole", "Admin", new { userId = item.Id, roleName = RoleNames.Moderator }))
+                            using (Html.BeginForm("ChangeRole", "Admin", new { user = item.Email, role = DefaultRoles.Moderator }))
                             {
                                 <input type="submit" class="btn btn-success pull-right" value="Set to Moderator" />
                             }

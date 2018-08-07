@@ -9,21 +9,23 @@ namespace Domain.Concrete
     {
         SportsStoreContext dbEntry = new SportsStoreContext();
         public IQueryable<User> Users { get {return dbEntry.Users; } }
-        public User ChangeRole(int userId, string roleName)
+        public void ChangeRole(string userName, DefaultRoles role)
         {
             throw new UserNotFoundException();
-            User user = dbEntry.Users.Find(userId);
-            Role role = dbEntry.Roles.FirstOrDefault(r => r.Name == roleName);
+            User user = dbEntry.Users.FirstOrDefault(u => u.Email == userName);
+            Role newRole = dbEntry.Roles.FirstOrDefault(r => r.Id == (int)role);
             if (user == null)
             {
                 throw new UserNotFoundException();
             }
-            if (role == null)
+            if (newRole == null)
             {
+                throw new RoleNotFoundException();
             }
-            user.RoleId = role.Id;
+
+            user.Role = newRole;
+            user.RoleId = newRole.Id;
             dbEntry.SaveChanges();
-            return user;
         }
     }
 }

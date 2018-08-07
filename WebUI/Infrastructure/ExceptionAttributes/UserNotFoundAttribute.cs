@@ -9,7 +9,7 @@ namespace WebUI.Infrastructure.ExceptionAttributes
         {
             if (!exceptionContext.ExceptionHandled && exceptionContext.Exception is UserNotFoundException)
             {
-                exceptionContext.Result = new RedirectResult("~/UserNotFound");
+                exceptionContext.Result = new RedirectResult("~/UserNotFound",true);
                 exceptionContext.ExceptionHandled = true;
             }
         }

@@ -18,17 +18,12 @@
 <body>
     <div class="navbar navbar-inverse">
         <a class="navbar-brand" href="~/">
-            <span class="hidden-xs">SPORTS STORE</span>
-            <div class="visible-xs">SPORTS</div>
-            <div class="visible-xs">STORE</div>
+            <span>SPORTS STORE</span>
         </a>
         <div class="text-danger">
             @User.Identity.Name
         </div>
         @Html.Action("Summary", "Cart")
-    </div>
-    <div class="visible-xs">
-        @Html.Action("Menu", "Nav", new { horizontalLayout = true })
     </div>
     <div class="navbar">
         @Html.Action("Authentication", "Account")

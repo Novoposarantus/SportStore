@@ -4,11 +4,6 @@ namespace WebUI.Controllers
 {
     public class ErrorController : Controller
     {
-        [Route("~/DefaultError")]
-        public ActionResult DefaultError()
-        {
-            return View();
-        }
         [Route("~/UserNotFound")]
         public string UserNotFound()
         {
@@ -19,5 +14,6 @@ namespace WebUI.Controllers
         {
             return "Role Not found";
         }
+
     }
 }

@@ -1,6 +1,4 @@
-﻿using Domain.Concrete;
-using Domain.Entities;
-using System.Collections.Generic;
+﻿using Domain.Entities;
 using System.Linq;
 
 namespace Domain.Abstract
@@ -8,6 +6,6 @@ namespace Domain.Abstract
      public interface IUsersRepository
     {
         IQueryable<User> Users { get; }
-        User ChangeRole(int userId, string roleName);
+        void ChangeRole(string user, DefaultRoles newRole);
     }
 }

@@ -9,7 +9,7 @@ using WebUI.Infrastructure.ExceptionAttributes;
 
 namespace WebUI.Controllers
 {
-    [AutorizeRoles(RoleNames.Admin,RoleNames.Moderator)]
+    [AutorizeRoles(DefaultRoles.Admin,DefaultRoles.Moderator)]
     [RoutePrefix("Moderation")]
     public class AdminController : Controller
     {
@@ -64,19 +64,19 @@ namespace WebUI.Controllers
             //}
             return RedirectToAction("List", "Product");
         }
-        [AutorizeRoles(RoleNames.Admin)]
+        [AutorizeRoles(DefaultRoles.Admin)]
         [Route("~/Administration/ListUsers")]
         public ViewResult ListUsers()
         {
             return View(userRepository.Users.Include(p => p.Role));
         }
         [HttpPost]
-        [AutorizeRoles(RoleNames.Admin)]
+        [AutorizeRoles(DefaultRoles.Admin)]
         [UserNotFound]
         [RoleNotFound]
-        public ActionResult ChangeRole(int userId, string roleName)
+        public ActionResult ChangeRole(string user, DefaultRoles role)
         {
-            User user = userRepository.ChangeRole(userId, roleName);
+            userRepository.ChangeRole(user, role);
             return RedirectToAction("ListUsers", "Admin");
         }
     }
