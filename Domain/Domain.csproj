@@ -90,8 +90,8 @@
     <Compile Include="Entities\ShippingDetails.cs" />
     <Compile Include="Entities\User.cs" />
     <Compile Include="Entities\Role.cs" />
-    <Compile Include="Exeptions\RoleNotFoundExeption.cs" />
-    <Compile Include="Exeptions\UserNotFoundExeption.cs" />
+    <Compile Include="Exceptions\RoleNotFoundException.cs" />
+    <Compile Include="Exceptions\UserNotFoundException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Data.Entity;
 using Domain.Entities;
 using WebUI.CustomAttributes;
+using WebUI.Infrastructure.ExceptionAttributes;
 
 namespace WebUI.Controllers
 {
@@ -71,10 +72,11 @@ namespace WebUI.Controllers
         }
         [HttpPost]
         [AutorizeRoles(RoleNames.Admin)]
+        [UserNotFound]
+        [RoleNotFound]
         public ActionResult ChangeRole(int userId, string roleName)
         {
-            User user = userRepository.ChangeRole(userId, roleName); 
-            //Сообщение об изменении роли
+            User user = userRepository.ChangeRole(userId, roleName);
             return RedirectToAction("ListUsers", "Admin");
         }
     }

@@ -1,7 +1,6 @@
 ﻿using Domain.Abstract;
 using Domain.Entities;
-using Domain.Exeptions;
-using System.Collections.Generic;
+using Domain.Exceptions;
 using System.Linq;
 
 namespace Domain.Concrete
@@ -9,22 +8,18 @@ namespace Domain.Concrete
     public class UsersRepository : IUsersRepository
     {
         SportsStoreContext dbEntry = new SportsStoreContext();
-        public IQueryable<User> Users { get {
-                return dbEntry.Users;
-            } }
-        [UserNotFound]
-        [RoleNotFound]
+        public IQueryable<User> Users { get {return dbEntry.Users; } }
         public User ChangeRole(int userId, string roleName)
         {
+            throw new UserNotFoundException();
             User user = dbEntry.Users.Find(userId);
             Role role = dbEntry.Roles.FirstOrDefault(r => r.Name == roleName);
             if (user == null)
             {
-                throw new UserNotFoundExeption("User not found");
+                throw new UserNotFoundException();
             }
             if (role == null)
             {
-                throw new RoleNotFoundExeption("Кole doesт't exist");
             }
             user.RoleId = role.Id;
             dbEntry.SaveChanges();
