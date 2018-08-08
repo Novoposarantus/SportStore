@@ -159,6 +159,7 @@
     <Content Include="Content\bootstrap-grid.css.map" />
     <Content Include="Content\Errors\UserNotFoundView.cshtml" />
     <Content Include="Content\Errors\RoleNotFoundView.cshtml" />
+    <Content Include="Content\Errors\NotEnoughPermissions.cshtml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />

@@ -9,5 +9,19 @@ namespace WebUI.Infrastructure.CustomAttributes
         {
             Roles = string.Join(",", roles);
         }
+        protected override void HandleUnauthorizedRequest(AuthorizationContext filterContext)
+        {
+            if (filterContext.HttpContext.Request.IsAuthenticated)
+            {
+                filterContext.Result = new ViewResult
+                {
+                    ViewName = "~/Content/Errors/NotEnoughPermissions.cshtml"
+                };
+            }
+            else
+            {
+                base.HandleUnauthorizedRequest(filterContext);
+            }
+        }
     }
 }

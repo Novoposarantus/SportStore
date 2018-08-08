@@ -22,9 +22,9 @@ namespace WebUI
     {
         protected override void Seed(SportsStoreContext db)
         {
-            Role admin = new Role { Name = "admin" };
-            Role user = new Role { Name = "user" };
-            Role moderator = new Role { Name = "moderator" };
+            Role admin = new Role { Name = "Admin" };
+            Role user = new Role { Name = "User" };
+            Role moderator = new Role { Name = "Moderator" };
             db.Roles.Add(admin);
             db.Roles.Add(moderator);
             db.Roles.Add(user);
