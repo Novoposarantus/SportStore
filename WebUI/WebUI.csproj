@@ -199,8 +199,7 @@
     <Compile Include="Content\Errors\500.aspx.designer.cs">
       <DependentUpon>500.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Controllers\ErrorController.cs" />
-    <Compile Include="CustomAttributes\AutorizeRolesAttribute.cs" />
+    <Compile Include="Infrastructure\CustomAttributes\AutorizeRolesAttribute.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\CartController.cs" />
@@ -213,8 +212,8 @@
     <Compile Include="Infrastructure\Abstract\IAuthProvider.cs" />
     <Compile Include="Infrastructure\Binders\CartModelBinder.cs" />
     <Compile Include="Infrastructure\Concrete\FormsAutoProvider.cs" />
-    <Compile Include="Infrastructure\ExceptionAttributes\RoleNotFoundAttribute.cs" />
-    <Compile Include="Infrastructure\ExceptionAttributes\UserNotFoundAttribute.cs" />
+    <Compile Include="Infrastructure\CustomAttributes\ExceptionAttributes\RoleNotFoundAttribute.cs" />
+    <Compile Include="Infrastructure\CustomAttributes\ExceptionAttributes\UserNotFoundAttribute.cs" />
     <Compile Include="Infrastructure\NinjectDependencyResolver.cs" />
     <Compile Include="Models\AuthenticationModel.cs" />
     <Compile Include="Models\CartIndexViewModel.cs" />
@@ -263,7 +262,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Error\" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />

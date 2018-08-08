@@ -1,7 +1,7 @@
 ﻿using Domain.Entities;
 using System.Web.Mvc;
 
-namespace WebUI.CustomAttributes
+namespace WebUI.Infrastructure.CustomAttributes
 {
     public class AutorizeRolesAttribute : AuthorizeAttribute
     {

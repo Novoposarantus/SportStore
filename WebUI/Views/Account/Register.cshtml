@@ -31,6 +31,10 @@
                 @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
             </div>
             <div class="form-group">
+                <label>Phone Number:</label>
+                @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control" })
+            </div>
+            <div class="form-group">
                 <label>Age:</label>
                 @Html.TextBoxFor(m => m.Age, new { @class = "form-control" })
             </div>

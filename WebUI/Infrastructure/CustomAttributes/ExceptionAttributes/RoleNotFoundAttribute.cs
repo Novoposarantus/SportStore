@@ -1,7 +1,7 @@
 ﻿using System.Web.Mvc;
 using Domain.Exceptions;
 
-namespace WebUI.Infrastructure.ExceptionAttributes
+namespace WebUI.Infrastructure.CustomAttributes.ExceptionAttributes
 {
     public class RoleNotFoundAttribute : FilterAttribute, IExceptionFilter
     {

@@ -25,11 +25,11 @@ namespace WebUI.Controllers
                 User user = null;
                 using (var dbEntry = new SportsStoreContext())
                 {
-                    user = dbEntry.Users.FirstOrDefault(u => u.Email == model.Login && u.Password == model.Password);
+                    user = dbEntry.Users.FirstOrDefault(u => u.Email.ToLower() == model.Login.ToLower() && u.Password == model.Password);
                 }
                 if (user != null)
                 {
-                    FormsAuthentication.SetAuthCookie(model.Login, true);
+                    FormsAuthentication.SetAuthCookie(user.Email, true);
                     return RedirectToAction("List", "Product");
                 }
                 else
@@ -54,20 +54,20 @@ namespace WebUI.Controllers
                 User user = null;
                 using (var dbEntry = new SportsStoreContext())
                 {
-                    user = dbEntry.Users.FirstOrDefault(u => u.Email == model.Login);
+                    user = dbEntry.Users.FirstOrDefault(u => u.Email.ToLower() == model.Login.ToLower());
                 }
                 if (user == null)
                 {
                     using (var dbEntry = new SportsStoreContext())
                     {
-                        dbEntry.Users.Add(new User { Email = model.Login, Password = model.Password, Age = model.Age, Role = new Role() {Name = Domain.Entities.DefaultRoles.User.ToString() } });
+                        dbEntry.Users.Add(new User { Email = model.Login, Password = model.Password, PhoneNumber = model.PhoneNumber, Age = model.Age, Role = new Role() {Name = Domain.Entities.DefaultRoles.User.ToString() } });
                         dbEntry.SaveChanges();
 
-                        user = dbEntry.Users.Where(u => u.Email == model.Login && u.Password == model.Password).FirstOrDefault();
+                        user = dbEntry.Users.Where(u => u.Email.ToLower() == model.Login.ToLower() && u.Password == model.Password).FirstOrDefault();
                     }
                     if (user != null)
                     {
-                        FormsAuthentication.SetAuthCookie(model.Login, true);
+                        FormsAuthentication.SetAuthCookie(user.Email, true);
                         return RedirectToAction("List", "Product");
                     }
                 }

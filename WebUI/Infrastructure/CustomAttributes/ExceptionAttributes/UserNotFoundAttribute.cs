@@ -1,7 +1,7 @@
 ﻿using Domain.Exceptions;
 using System.Web.Mvc;
 
-namespace WebUI.Infrastructure.ExceptionAttributes
+namespace WebUI.Infrastructure.CustomAttributes.ExceptionAttributes
 {
     class UserNotFoundAttribute : FilterAttribute, IExceptionFilter
     {

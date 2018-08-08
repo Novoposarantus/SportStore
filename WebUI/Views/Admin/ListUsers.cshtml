@@ -15,6 +15,7 @@
             <tr>
                 <th class="text-center">ID</th>
                 <th class="text-center">Name</th>
+                <th class="text-center">Phone Number</th>
                 <th class="text-center">Age</th>
                 <th class="text-center">Role</th>
             </tr>
@@ -23,6 +24,7 @@
                 <tr>
                     <td class="text-center">@item.Id</td>
                     <td class="text-center">@item.Email</td>
+                    <td class="text-center">@item.PhoneNumber</td>
                     <td class="text-center">@item.Age</td>
                     <td class="text-left">@item.Role.Name
                     @if (item.Role.Id != (int)DefaultRoles.Admin)

@@ -33,6 +33,7 @@ namespace WebUI
                 Email = "admin",
                 Password = "admin",
                 Age = 21,
+                PhoneNumber = "+79531801740",
                 Role = admin
             });
             base.Seed(db);
