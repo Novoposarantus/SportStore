@@ -9,7 +9,10 @@ namespace WebUI.Infrastructure.ExceptionAttributes
         {
             if (!exceptionContext.ExceptionHandled && exceptionContext.Exception is RoleNotFoundException)
             {
-                exceptionContext.Result = new RedirectResult("/Content/RoleNotFoundView.html");
+                exceptionContext.Result = new ViewResult
+                {
+                    ViewName = "~/Content/Errors/RoleNotFoundView.cshtml"
+                };
                 exceptionContext.ExceptionHandled = true;
             }
         }

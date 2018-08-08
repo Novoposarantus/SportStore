@@ -9,7 +9,10 @@ namespace WebUI.Infrastructure.ExceptionAttributes
         {
             if (!exceptionContext.ExceptionHandled && exceptionContext.Exception is UserNotFoundException)
             {
-                exceptionContext.Result = new RedirectResult("~/UserNotFound",true);
+                exceptionContext.Result = new ViewResult
+                {
+                    ViewName = "~/Content/Errors/UserNotFoundView.cshtml"
+                };
                 exceptionContext.ExceptionHandled = true;
             }
         }
