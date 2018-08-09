@@ -3,6 +3,9 @@ using Domain.Entities;
 using WebUI.Models;
 using System.Linq;
 using System.Web.Mvc;
+using Domain.Concrete;
+using Domain.Exceptions;
+using WebUI.Infrastructure.CustomAttributes.ExceptionAttributes;
 
 namespace WebUI.Controllers
 {
@@ -10,10 +13,12 @@ namespace WebUI.Controllers
     {
         IProductRepository repository;
         IOrderProcessor orderProcessor;
-        public CartController(IProductRepository repository, IOrderProcessor orderProcessor)
+        IUsersRepository usersRespository;
+        public CartController(IProductRepository repository, IOrderProcessor orderProcessor, IUsersRepository usersRespository)
         {
             this.repository = repository;
             this.orderProcessor = orderProcessor;
+            this.usersRespository = usersRespository;
         }
         public ViewResult Index(Cart cart, string returnUrl)
         {
@@ -50,6 +55,7 @@ namespace WebUI.Controllers
             return View(new ShippingDetails());
         }
         [HttpPost]
+        [UserNotFound]
         public ViewResult Checkout(Cart cart, ShippingDetails shippingDetails)
         {
             if (cart.Lines.Count() == 0)
@@ -59,7 +65,10 @@ namespace WebUI.Controllers
 
             if (ModelState.IsValid)
             {
-                orderProcessor.ProcessOrder(cart, shippingDetails);
+                if (User.Identity.IsAuthenticated) {
+                    usersRespository.SetPurhase(cart, System.Web.HttpContext.Current.User.Identity.Name);
+                }
+                    orderProcessor.ProcessOrder(cart, shippingDetails);
                 cart.Clear();
                 return View("Completed");
             }

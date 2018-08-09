@@ -1,6 +1,7 @@
 ﻿using Domain.Abstract;
 using Domain.Entities;
 using Domain.Exceptions;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Domain.Concrete
@@ -16,6 +17,23 @@ namespace Domain.Concrete
             user.Role = newRole;
             user.RoleId = newRole.Id;
             dbEntry.SaveChanges();
+        }
+        public void SetPurhase(Cart cart, string userName) {
+            User user = GetUser(userName);
+            foreach (var purchase in cart.Lines) {
+                dbEntry.Purchases.Add(new Purchases() {
+                    Name = purchase.Product.Name,
+                    Price = purchase.Product.Price,
+                    Quantity = purchase.Quantity,
+                    PurchaseId = user.QuantityPurchases,
+                    UserId = user.Id
+                });
+                user.QuantityPurchases++;
+                dbEntry.SaveChanges();
+            }
+        }
+        public IQueryable<Purchases> GetPurchases(int userId) {
+            return dbEntry.Purchases.Where(p => p.UserId == userId);
         }
         User GetUser(string userName)
         {
