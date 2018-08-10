@@ -1,10 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
 
 namespace Domain.Entities
 {
-    public class Product
-    {
+    public class Product {
         [HiddenInput(DisplayValue = false)]
         public int ProductID { get; set; }
 
@@ -23,5 +23,10 @@ namespace Domain.Entities
         public string Category { get; set; }
         public byte[] ImageData { get; set; }
         public string ImageMimeType { get; set; }
+        public ICollection<Purchases> Purchases { get; set; }
+        public Product() 
+        {
+            Purchases = new List<Purchases>();
+        }
     }
 }

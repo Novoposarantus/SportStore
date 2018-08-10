@@ -1,6 +1,7 @@
 ﻿using Domain.Abstract;
 using Domain.Entities;
 using Domain.Exceptions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -20,21 +21,23 @@ namespace Domain.Concrete
         }
         public void SetPurhase(Cart cart, string userName) {
             User user = GetUser(userName);
-            foreach (var purchase in cart.Lines) {
-                dbEntry.Purchases.Add(new Purchases() {
-                    Name = purchase.Product.Name,
-                    Price = purchase.Product.Price,
-                    Quantity = purchase.Quantity,
-                    PurchaseId = user.QuantityPurchases,
-                    UserId = user.Id
-                });
-                user.QuantityPurchases++;
-                dbEntry.SaveChanges();
+            var purchaseList = new Purchases() {
+                DateBuy = DateTime.Now,
+                User = user,
+                Products = new List<Product>()
+            };
+            foreach (var product in cart.Lines) {
+                for (int i = 0; i < product.Quantity;++i) {
+                    purchaseList.Products.Add(product.Product);
+                }
             }
+            dbEntry.Purchases.Add(purchaseList);
+            user.QuantityPurchases++;
+            dbEntry.SaveChanges();
         }
-        public IQueryable<Purchases> GetPurchases(int userId) {
+        public IEnumerable<Purchases> GetPurchases(int userId) {
             return dbEntry.Purchases.Where(p => p.UserId == userId);
-        }
+        } 
         User GetUser(string userName)
         {
             return dbEntry.Users.FirstOrDefault(u => u.Email == userName) ?? throw new UserNotFoundException();

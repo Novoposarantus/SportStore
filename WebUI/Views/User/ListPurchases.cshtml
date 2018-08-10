@@ -1,0 +1,16 @@
+﻿@model WebUI.Models.PurchaseListViewModel
+
+@{
+    ViewBag.Title = "Purchases";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+@foreach (var p in Model.Purchases) {
+    @Html.Partial("PurchasesSummary",p)
+}
+<div class="btn-group pull-right">
+    @Html.PageLinks(Model.PagingInfo,x => Url.Action("ListPurchases",
+        new { page = x }))
+</div>

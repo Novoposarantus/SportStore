@@ -15,23 +15,10 @@ namespace UnitTests
     public class AdminTests
     {
         [TestMethod]
-        public void IndexContainsAllProduct()
-        {
-            var mock = GetMock();
-            var target = new AdminController(mock.Object);
-            
-            Product[] result = ((IEnumerable<Product>)target.Index().ViewData.Model).ToArray();
-
-            Assert.AreEqual(result.Length, 3);
-            Assert.AreEqual("P1", result[0].Name);
-            Assert.AreEqual("P2", result[1].Name);
-            Assert.AreEqual("P3", result[2].Name);
-        }
-        [TestMethod]
         public void CanEditProduct()
         {
             var mock = GetMock();
-            var target = new AdminController(mock.Object);
+            var target = new AdminController(null,null);
 
             Product p1 = target.Edit(1).ViewData.Model as Product;
             Product p2 = target.Edit(2).ViewData.Model as Product;
@@ -45,7 +32,7 @@ namespace UnitTests
         public void CannotEditNonexistentProduct()
         {
             var mock = GetMock();
-            var target = new AdminController(mock.Object);
+            var target = new AdminController(mock.Object,null);
 
             Product result = (Product)target.Edit(4).ViewData.Model;
 
@@ -55,7 +42,7 @@ namespace UnitTests
         public void CanSaveValidChanges()
         {
             var mock = new Mock<IProductRepository>();
-            var target = new AdminController(mock.Object);
+            var target = new AdminController(mock.Object, null);
             var product = new Product { Name = "Test" };
 
             ActionResult result = target.Edit(product);
@@ -67,7 +54,7 @@ namespace UnitTests
         public void CannotSaveInvalidChanges()
         {
             var mock = new Mock<IProductRepository>();
-            var target = new AdminController(mock.Object);
+            var target = new AdminController(mock.Object, null);
             var product = new Product { Name = "Test" };
             target.ModelState.AddModelError("error", "error");
 
@@ -80,7 +67,7 @@ namespace UnitTests
         public void Can_Delete_Valid_Products()
         {
             var mock = GetMock();
-            var target = new AdminController(mock.Object);
+            var target = new AdminController(null,null);
 
             target.Delete(2);
 
@@ -99,16 +86,9 @@ namespace UnitTests
         [TestMethod]
         public void CanLoginWithValidCredentials()
         {
-            var mock = new Mock<IAuthProvider>();
-            mock.Setup(m => m.Authenticate("admin", "secret")).Returns(true);
-            var model = new LoginViewModel
-            {
-                UserName = "admin",
-                Password = "secret"
-            };
-            var target = new AccountController(mock.Object);
+            var target = new AccountController();
 
-            ActionResult result = target.Login(model, "/MyURL");
+            ActionResult result = target.Login();
 
             Assert.IsInstanceOfType(result, typeof(RedirectResult));
             Assert.AreEqual("/MyURL", ((RedirectResult)result).Url);
@@ -116,16 +96,9 @@ namespace UnitTests
         [TestMethod]
         public void CannotLoginWithInvalidCredentials()
         {
-            var mock = new Mock<IAuthProvider>();
-            mock.Setup(m => m.Authenticate("admin", "secret")).Returns(true);
-            var model = new LoginViewModel
-            {
-                UserName = "NoAdmin",
-                Password = "NoSecret"
-            };
-            var target = new AccountController(mock.Object);
+            var target = new AccountController();
 
-            ActionResult result = target.Login(model, "/MyURL");
+            ActionResult result = target.Login();
 
             Assert.IsInstanceOfType(result, typeof(ViewResult));
             Assert.IsFalse(((ViewResult)result).ViewData.ModelState.IsValid);

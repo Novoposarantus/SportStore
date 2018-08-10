@@ -1,5 +1,6 @@
 ﻿using Domain.Concrete;
 using Domain.Entities;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Web.Mvc;
 using System.Web.Routing;
@@ -11,7 +12,7 @@ namespace WebUI
     {
         protected void Application_Start()
         {
-            //Database.SetInitializer(new UserDbInitializer());
+            Database.SetInitializer(new UserDbInitializer());
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             ModelBinders.Binders.Add(typeof(Cart), new CartModelBinder());
@@ -25,16 +26,23 @@ namespace WebUI
             Role admin = new Role { Name = "Admin" };
             Role user = new Role { Name = "User" };
             Role moderator = new Role { Name = "Moderator" };
-            db.Roles.Add(admin);
-            db.Roles.Add(moderator);
-            db.Roles.Add(user);
-            db.Users.Add(new User
-            {
+            User adminUser = new User {
                 Email = "admin",
                 Password = "admin",
                 Age = 21,
+                QuantityPurchases = 1,
                 PhoneNumber = "+79531801740",
                 Role = admin
+            };
+            db.Roles.Add(admin);
+            db.Roles.Add(moderator);
+            db.Roles.Add(user);
+            db.Users.Add(adminUser);
+            db.Products.Add(new Product() {
+                Name = "Product1",
+                Description = "DescriptionProduct1",
+                Price = 123M,
+                Category = "Category1"
             });
             base.Seed(db);
         }

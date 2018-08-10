@@ -6,7 +6,7 @@ using WebUI.Controllers;
 using System.Linq;
 using System.Web.Mvc;
 
-namespace UnitTests.Tests
+namespace UnitTests
 {
     [TestClass]
     public class ImageTests

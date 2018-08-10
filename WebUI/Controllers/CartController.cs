@@ -68,9 +68,9 @@ namespace WebUI.Controllers
                 if (User.Identity.IsAuthenticated) {
                     usersRespository.SetPurhase(cart, System.Web.HttpContext.Current.User.Identity.Name);
                 }
-                    orderProcessor.ProcessOrder(cart, shippingDetails);
+                //orderProcessor.ProcessOrder(cart, shippingDetails);
                 cart.Clear();
-                return View("Completed");
+                return View("Comleted");
             }
             else
             {

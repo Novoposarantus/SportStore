@@ -19,7 +19,7 @@ namespace UnitTests
         {
             var mock = GetMock();
             var cart = new Cart();
-            var target = new CartController(mock.Object, null);
+            var target = new CartController(mock.Object,null, null);
 
             target.AddToCart(cart, 1, null);
 
@@ -32,7 +32,7 @@ namespace UnitTests
         {
             var mock = GetMock();
             var cart = new Cart();
-            var target = new CartController(mock.Object, null);
+            var target = new CartController(mock.Object, null, null);
 
             RedirectToRouteResult result = target.AddToCart(cart, 2, "myUrl");
 
@@ -43,7 +43,7 @@ namespace UnitTests
         public void CanViewCartContents()
         {
             var cart = new Cart();
-            var target = new CartController(null, null);
+            var target = new CartController(null, null, null);
 
             var result = (CartIndexViewModel)target.Index(cart, "myUrl").ViewData.Model;
 
@@ -64,7 +64,7 @@ namespace UnitTests
             var mock = new Mock<IOrderProcessor>();
             var cart = new Cart();
             var shippingDetails = new ShippingDetails();
-            var target = new CartController(null, mock.Object);
+            var target = new CartController(null, mock.Object,null);
             
             ViewResult result = target.Checkout(cart, shippingDetails);
 
@@ -79,7 +79,7 @@ namespace UnitTests
             var mock = new Mock<IOrderProcessor>();
             var cart = new Cart();
             cart.AddItem(new Product(), 1);
-            var target = new CartController(null, mock.Object);
+            var target = new CartController(null, mock.Object, null);
             target.ModelState.AddModelError("error", "error");
             
             ViewResult result = target.Checkout(cart, new ShippingDetails());
@@ -96,7 +96,7 @@ namespace UnitTests
             var mock = new Mock<IOrderProcessor>();
             var cart = new Cart();
             cart.AddItem(new Product(), 1);
-            var target = new CartController(null, mock.Object);
+            var target = new CartController(null, mock.Object,null);
             
             ViewResult result = target.Checkout(cart, new ShippingDetails());
             mock.Verify(m => m.ProcessOrder(It.IsAny<Cart>(), It.IsAny<ShippingDetails>()),

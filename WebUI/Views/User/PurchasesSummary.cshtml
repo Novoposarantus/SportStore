@@ -1,0 +1,11 @@
+﻿@model Domain.Entities.Purchases
+
+<div class="well">
+        @foreach (var product in Model.Products) {
+        <h3>
+            <strong>@product.Name</strong>
+            <span class="pull-right label label-primary">@product.Price.ToString("c")</span>
+        </h3>
+        }
+    <span class="lead"> @Model.DateBuy</span>
+</div>
