@@ -86,7 +86,7 @@
     <Compile Include="Concrete\SportsStoreContext.cs" />
     <Compile Include="Concrete\UsersRepository.cs" />
     <Compile Include="Entities\Cart.cs" />
-    <Compile Include="Entities\Permission.cs" />
+    <Compile Include="Entities\CartLine.cs" />
     <Compile Include="Entities\Product.cs" />
     <Compile Include="Entities\Purchases.cs" />
     <Compile Include="Entities\ShippingDetails.cs" />

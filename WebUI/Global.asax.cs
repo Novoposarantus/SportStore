@@ -12,7 +12,8 @@ namespace WebUI
     {
         protected void Application_Start()
         {
-            Database.SetInitializer(new UserDbInitializer());
+            //Database.SetInitializer(new UserDbInitializer());
+
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             ModelBinders.Binders.Add(typeof(Cart), new CartModelBinder());
@@ -30,7 +31,6 @@ namespace WebUI
                 Email = "admin",
                 Password = "admin",
                 Age = 21,
-                QuantityPurchases = 1,
                 PhoneNumber = "+79531801740",
                 Role = admin
             };

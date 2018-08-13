@@ -1,11 +1,20 @@
 ﻿@model Domain.Entities.Purchases
 
-<div class="well">
-        @foreach (var product in Model.Products) {
+@{ 
+    decimal totalCost = 0;
+}
+
+<div class="well ">
+    <span class="lead">Purchased products:</span>
+        @foreach (var product in Model.Products)
+        {
         <h3>
             <strong>@product.Name</strong>
-            <span class="pull-right label label-primary">@product.Price.ToString("c")</span>
+            <span class="pull-right label label-primary">@((product.Price).ToString("c"))</span>
+            <br/>Quantiry:
         </h3>
+            totalCost += product.Price;
         }
-    <span class="lead"> @Model.DateBuy</span>
+    <div class="lead">Total cost: @totalCost.ToString("c")</div>
+    <div class="lead">Date of purchase: @Model.DateBuy</div>
 </div>

@@ -4,6 +4,7 @@ using Domain.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Data.Entity;
 
 namespace Domain.Concrete
 {
@@ -11,6 +12,11 @@ namespace Domain.Concrete
     {
         SportsStoreContext dbEntry = new SportsStoreContext();
         public IQueryable<User> Users { get {return dbEntry.Users; } }
+        public IQueryable<Purchases> GetPurchases(int userId) {
+
+            return dbEntry.Purchases.Where(p => p.UserId == userId).Include(p=>p.Products);
+        }
+
         public void ChangeRole(string userName, DefaultRoles role)
         {
             User user = GetUser(userName);
@@ -26,18 +32,13 @@ namespace Domain.Concrete
                 User = user,
                 Products = new List<Product>()
             };
-            foreach (var product in cart.Lines) {
-                for (int i = 0; i < product.Quantity;++i) {
-                    purchaseList.Products.Add(product.Product);
-                }
+            foreach (var line in cart.Lines) {
+                purchaseList.Products.Add(GetProduct(line.Product));
             }
             dbEntry.Purchases.Add(purchaseList);
-            user.QuantityPurchases++;
             dbEntry.SaveChanges();
         }
-        public IEnumerable<Purchases> GetPurchases(int userId) {
-            return dbEntry.Purchases.Where(p => p.UserId == userId);
-        } 
+
         User GetUser(string userName)
         {
             return dbEntry.Users.FirstOrDefault(u => u.Email == userName) ?? throw new UserNotFoundException();
@@ -45,6 +46,10 @@ namespace Domain.Concrete
         Role GetRole(DefaultRoles role)
         {
             return dbEntry.Roles.FirstOrDefault(r => r.Id == (int)role) ?? throw new RoleNotFoundException();
+        }
+        Product GetProduct(Product product) 
+        {
+            return dbEntry.Products.FirstOrDefault(p => p.ProductID == product.ProductID) ?? throw new ArgumentException();
         }
     }
 }

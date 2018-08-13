@@ -13,6 +13,7 @@ namespace WebUI.Controllers {
             this.repository = repository;
         }
         [Authorize]
+        [Route("ListPurchases")]
         public ViewResult ListPurchases(int page = 1) {
             var user = repository.Users.FirstOrDefault(u => u.Email == System.Web.HttpContext.Current.User.Identity.Name) ?? throw new UserNotFoundException();
             var purchases = repository.GetPurchases(user.Id);

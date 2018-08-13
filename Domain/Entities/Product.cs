@@ -23,10 +23,10 @@ namespace Domain.Entities
         public string Category { get; set; }
         public byte[] ImageData { get; set; }
         public string ImageMimeType { get; set; }
-        public ICollection<Purchases> Purchases { get; set; }
-        public Product() 
-        {
-            Purchases = new List<Purchases>();
+
+        public ICollection<Purchases> CartLines { get; set; }
+        public Product() {
+            this.CartLines = new HashSet<Purchases>();
         }
     }
 }

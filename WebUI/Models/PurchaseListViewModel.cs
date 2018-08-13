@@ -1,9 +1,9 @@
 ﻿using Domain.Entities;
-using System.Collections.Generic;
+using System.Linq;
 
 namespace WebUI.Models {
     public class PurchaseListViewModel {
-        public IEnumerable<Purchases> Purchases { get; set; }
+        public IQueryable<Purchases> Purchases { get; set; }
         public PagingInfo PagingInfo { get; set; }
     }
 }
