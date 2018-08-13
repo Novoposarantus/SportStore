@@ -92,6 +92,7 @@
     <Compile Include="Entities\ShippingDetails.cs" />
     <Compile Include="Entities\User.cs" />
     <Compile Include="Entities\Role.cs" />
+    <Compile Include="Exceptions\ProductNotFoundException.cs" />
     <Compile Include="Exceptions\RoleNotFoundException.cs" />
     <Compile Include="Exceptions\UserNotFoundException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

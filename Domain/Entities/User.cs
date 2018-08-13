@@ -11,6 +11,6 @@ namespace Domain.Entities
         public string PhoneNumber { get; set; }
         public int RoleId { get; set; }
         public virtual Role Role { get; set; }
-        public ICollection<Purchases> PurchaseHistory { get; set; }
+        public ICollection<Purchase> PurchaseHistory { get; set; }
     }
 }

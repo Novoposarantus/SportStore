@@ -12,7 +12,7 @@ namespace Domain.Concrete
     {
         SportsStoreContext dbEntry = new SportsStoreContext();
         public IQueryable<User> Users { get {return dbEntry.Users; } }
-        public IQueryable<Purchases> GetPurchases(int userId) {
+        public IQueryable<Purchase> GetPurchases(int userId) {
 
             return dbEntry.Purchases.Where(p => p.UserId == userId).Include(p=>p.Products);
         }
@@ -27,15 +27,17 @@ namespace Domain.Concrete
         }
         public void SetPurhase(Cart cart, string userName) {
             User user = GetUser(userName);
-            var purchaseList = new Purchases() {
+            var purchase = new Purchase() {
                 DateBuy = DateTime.Now,
                 User = user,
                 Products = new List<Product>()
             };
             foreach (var line in cart.Lines) {
-                purchaseList.Products.Add(GetProduct(line.Product));
+                for (var i = 0; i < line.Quantity; ++i) {
+                    purchase.Products.Add(GetProduct(line.Product));
+                }
             }
-            dbEntry.Purchases.Add(purchaseList);
+            dbEntry.Purchases.Add(purchase);
             dbEntry.SaveChanges();
         }
 
@@ -49,7 +51,7 @@ namespace Domain.Concrete
         }
         Product GetProduct(Product product) 
         {
-            return dbEntry.Products.FirstOrDefault(p => p.ProductID == product.ProductID) ?? throw new ArgumentException();
+            return dbEntry.Products.FirstOrDefault(p => p.ProductID == product.ProductID) ?? throw new ProductNotFoundException();
         }
     }
 }

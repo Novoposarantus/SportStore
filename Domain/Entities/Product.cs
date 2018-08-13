@@ -24,9 +24,9 @@ namespace Domain.Entities
         public byte[] ImageData { get; set; }
         public string ImageMimeType { get; set; }
 
-        public ICollection<Purchases> CartLines { get; set; }
+        public ICollection<Purchase> CartLines { get; set; }
         public Product() {
-            this.CartLines = new HashSet<Purchases>();
+            this.CartLines = new HashSet<Purchase>();
         }
     }
 }

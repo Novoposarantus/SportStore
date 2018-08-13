@@ -160,6 +160,7 @@
     <Content Include="Content\Errors\UserNotFoundView.cshtml" />
     <Content Include="Content\Errors\RoleNotFoundView.cshtml" />
     <Content Include="Content\Errors\NotEnoughPermissions.cshtml" />
+    <Content Include="Content\Errors\ProductNotFoundView.cshtml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -214,6 +215,7 @@
     <Compile Include="Infrastructure\Abstract\IAuthProvider.cs" />
     <Compile Include="Infrastructure\Binders\CartModelBinder.cs" />
     <Compile Include="Infrastructure\Concrete\FormsAutoProvider.cs" />
+    <Compile Include="Infrastructure\CustomAttributes\ExceptionAttributes\ProductNotFoundAttribute.cs" />
     <Compile Include="Infrastructure\CustomAttributes\ExceptionAttributes\RoleNotFoundAttribute.cs" />
     <Compile Include="Infrastructure\CustomAttributes\ExceptionAttributes\UserNotFoundAttribute.cs" />
     <Compile Include="Infrastructure\NinjectDependencyResolver.cs" />

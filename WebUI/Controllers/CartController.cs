@@ -3,8 +3,6 @@ using Domain.Entities;
 using WebUI.Models;
 using System.Linq;
 using System.Web.Mvc;
-using Domain.Concrete;
-using Domain.Exceptions;
 using WebUI.Infrastructure.CustomAttributes.ExceptionAttributes;
 
 namespace WebUI.Controllers
@@ -56,6 +54,7 @@ namespace WebUI.Controllers
         }
         [HttpPost]
         [UserNotFound]
+        [ProductNotFound]
         public ViewResult Checkout(Cart cart, ShippingDetails shippingDetails)
         {
             if (cart.Lines.Count() == 0)
