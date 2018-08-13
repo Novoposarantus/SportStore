@@ -7,11 +7,11 @@ namespace Domain.Entities {
         public DateTime DateBuy { get; set; }
         public int UserId { get; set; }
         public User User { get; set; }
-        public ICollection<Product> Products { get; set; }
+        public ICollection<CartLine> Products { get; set; }
 
         public Purchase() 
         {
-            this.Products = new HashSet<Product>();
+            this.Products = new List<CartLine>();
         }
     }
 }

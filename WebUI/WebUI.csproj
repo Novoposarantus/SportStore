@@ -215,6 +215,7 @@
     <Compile Include="Infrastructure\Abstract\IAuthProvider.cs" />
     <Compile Include="Infrastructure\Binders\CartModelBinder.cs" />
     <Compile Include="Infrastructure\Concrete\FormsAutoProvider.cs" />
+    <Compile Include="Infrastructure\CustomAttributes\CustomAutorizeAttribute.cs" />
     <Compile Include="Infrastructure\CustomAttributes\ExceptionAttributes\ProductNotFoundAttribute.cs" />
     <Compile Include="Infrastructure\CustomAttributes\ExceptionAttributes\RoleNotFoundAttribute.cs" />
     <Compile Include="Infrastructure\CustomAttributes\ExceptionAttributes\UserNotFoundAttribute.cs" />

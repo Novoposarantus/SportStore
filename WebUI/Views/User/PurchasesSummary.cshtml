@@ -6,15 +6,16 @@
 
 <div class="well ">
     <span class="lead">Purchased products:</span>
-        @foreach (var product in Model.Products)
+        @foreach (var line in Model.Products)
         {
         <h3>
-            <strong>@product.Name</strong>
-            <span class="pull-right label label-primary">@((product.Price).ToString("c"))</span>
-            <br/>Quantiry:
+            <strong>@line.Product.Name</strong>
+            <span class="pull-right label label-primary">@((line.Product.Price*line.Quantity).ToString("c"))</span>
+            <br/>Quantiry @line.Quantity:
         </h3>
-            totalCost += product.Price;
+            totalCost += line.Product.Price*line.Quantity;
         }
     <div class="lead">Total cost: @totalCost.ToString("c")</div>
     <div class="lead">Date of purchase: @Model.DateBuy</div>
+    <hr>
 </div>

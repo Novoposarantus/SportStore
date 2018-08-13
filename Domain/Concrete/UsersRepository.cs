@@ -30,12 +30,10 @@ namespace Domain.Concrete
             var purchase = new Purchase() {
                 DateBuy = DateTime.Now,
                 User = user,
-                Products = new List<Product>()
+                Products = new List<CartLine>()
             };
             foreach (var line in cart.Lines) {
-                for (var i = 0; i < line.Quantity; ++i) {
-                    purchase.Products.Add(GetProduct(line.Product));
-                }
+                purchase.Products.Add(line);
             }
             dbEntry.Purchases.Add(purchase);
             dbEntry.SaveChanges();
