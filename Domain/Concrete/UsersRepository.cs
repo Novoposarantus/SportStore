@@ -33,7 +33,12 @@ namespace Domain.Concrete
                 Products = new List<CartLine>()
             };
             foreach (var line in cart.Lines) {
-                purchase.Products.Add(line);
+                purchase.Products.Add(new CartLine() {
+                    Id = line.Id,
+                    ProductId = line.ProductId,
+                    Product = dbEntry.Products.FirstOrDefault(p=>p.ProductID == line.Product.ProductID) ?? throw new ProductNotFoundException(),
+                    Quantity = line.Quantity
+                });
             }
             dbEntry.Purchases.Add(purchase);
             dbEntry.SaveChanges();

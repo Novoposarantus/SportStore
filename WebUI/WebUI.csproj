@@ -241,9 +241,7 @@
     <Content Include="Views\Cart\Checkout.cshtml" />
     <Content Include="Views\Cart\Comleted.cshtml" />
     <Content Include="Views\Nav\FlexMenu.cshtml" />
-    <Content Include="Views\Shared\_Layout.Mobile.cshtml" />
     <Content Include="Views\Nav\FlexMenu.Mobile.cshtml" />
-    <Content Include="Views\Shared\ProductSummaty.Mobile.cshtml" />
     <Content Include="Views\Shared\_AdminLayout.cshtml" />
     <Content Include="Views\Admin\Edit.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />

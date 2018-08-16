@@ -12,7 +12,7 @@ namespace WebUI
     {
         protected void Application_Start()
         {
-            //Database.SetInitializer(new UserDbInitializer());
+            Database.SetInitializer(new UserDbInitializer());
 
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
