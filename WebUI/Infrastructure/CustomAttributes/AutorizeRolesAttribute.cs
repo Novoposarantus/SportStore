@@ -1,11 +1,10 @@
-﻿using Domain.Entities;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 
 namespace WebUI.Infrastructure.CustomAttributes
 {
     public class AutorizeRolesAttribute : AuthorizeAttribute
     {
-        public AutorizeRolesAttribute(params DefaultRoles[] roles) : base()
+        public AutorizeRolesAttribute(params string[] roles) : base()
         {
             Roles = string.Join(",", roles);
         }

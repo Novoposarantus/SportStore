@@ -5,8 +5,6 @@ using System.Configuration;
 using Ninject;
 using Domain.Abstract;
 using Domain.Concrete;
-using WebUI.Infrastructure.Abstract;
-using WebUI.Infrastructure.Concrete;
 
 namespace WebUI.Infrastructure
 {
@@ -36,7 +34,6 @@ namespace WebUI.Infrastructure
                 WriteAsFile = bool.Parse(ConfigurationManager.AppSettings["Email.WriteAsFile"] ?? "false")
             };
             kernel.Bind<IOrderProcessor>().To<EmailOrderProcessor>().WithConstructorArgument("settings", emailSettings);
-            kernel.Bind<IAuthProvider>().To<FormsAutoProvider>();
         }
     }
 }

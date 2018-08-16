@@ -12,18 +12,19 @@ namespace Domain.Concrete
     {
         SportsStoreContext dbEntry = new SportsStoreContext();
         public IQueryable<User> Users { get {return dbEntry.Users; } }
-        public IQueryable<Purchase> GetPurchases(int userId) {
+        public IQueryable<Purchase> GetPurchases(string userId) {
 
             return dbEntry.Purchases.Where(p => p.UserId == userId).Include(p=>p.Products);
         }
 
-        public void ChangeRole(string userName, DefaultRoles role)
+        public void ChangeRole(string userName, string role)
         {
-            User user = GetUser(userName);
-            Role newRole = GetRole(role);
-            user.Role = newRole;
-            user.RoleId = newRole.Id;
-            dbEntry.SaveChanges();
+            throw new NotImplementedException();
+            //User user = GetUser(userName);
+            //Role newRole = GetRole(role);
+            //user.Role = newRole;
+            //user.RoleId = newRole.Id;
+            //dbEntry.SaveChanges();
         }
         public void SetPurhase(Cart cart, string userName) {
             User user = GetUser(userName);
@@ -48,10 +49,10 @@ namespace Domain.Concrete
         {
             return dbEntry.Users.FirstOrDefault(u => u.Email == userName) ?? throw new UserNotFoundException();
         }
-        Role GetRole(DefaultRoles role)
-        {
-            return dbEntry.Roles.FirstOrDefault(r => r.Id == (int)role) ?? throw new RoleNotFoundException();
-        }
+        //Role GetRole(DefaultRoles role)
+        //{
+        //    return dbEntry.Roles.FirstOrDefault(r => r.Id == (int)role) ?? throw new RoleNotFoundException();
+        //}
         Product GetProduct(Product product) 
         {
             return dbEntry.Products.FirstOrDefault(p => p.ProductID == product.ProductID) ?? throw new ProductNotFoundException();

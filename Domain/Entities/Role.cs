@@ -1,13 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace Domain.Entities
 {
-    public enum DefaultRoles { Admin = 1, Moderator, User }
-
-    public class Role
+    public class Role : IdentityRole
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public ICollection<User> Users { get; set; }
+        public Role() : base() { }
+        public Role(string name) : base(name) { }
     }
 }

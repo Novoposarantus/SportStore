@@ -9,7 +9,7 @@ using System.Data.Entity;
 
 namespace WebUI.Controllers
 {
-    [AutorizeRoles(DefaultRoles.Admin,DefaultRoles.Moderator)]
+    //[AutorizeRoles(DefaultRoles.Admin,DefaultRoles.Moderator)]
     [RoutePrefix("Moderation")]
     public class AdminController : Controller
     {
@@ -64,17 +64,17 @@ namespace WebUI.Controllers
             //}
             return RedirectToAction("List", "Product");
         }
-        [AutorizeRoles(DefaultRoles.Admin)]
+        //[AutorizeRoles(DefaultRoles.Admin)]
         [Route("~/Administration/ListUsers")]
         public ViewResult ListUsers()
         {
-            return View(userRepository.Users.Include(p => p.Role));
+            return View(userRepository.Users.Include(p => p/*.Role*/));
         }
         [HttpPost]
-        [AutorizeRoles(DefaultRoles.Admin)]
+        //[AutorizeRoles(DefaultRoles.Admin)]
         [UserNotFound]
         [RoleNotFound]
-        public ActionResult ChangeRole(string user, DefaultRoles role)
+        public ActionResult ChangeRole(string user, string role)
         {
             userRepository.ChangeRole(user, role);
             return RedirectToAction("ListUsers", "Admin");

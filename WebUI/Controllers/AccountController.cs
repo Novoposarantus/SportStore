@@ -1,10 +1,12 @@
-﻿using System.Linq;
-using WebUI.Models;
+﻿using WebUI.Models;
 using System.Web.Mvc;
 using Domain.Concrete;
 using Domain.Entities;
-using System.Web.Security;
-using System.Collections.Generic;
+using System.Web;
+using Microsoft.AspNet.Identity.Owin;
+using Microsoft.AspNet.Identity;
+using Microsoft.Owin.Security;
+using System.Threading.Tasks;
 
 namespace WebUI.Controllers
 {
@@ -23,21 +25,20 @@ namespace WebUI.Controllers
         {
             if (ModelState.IsValid)
             {
-                User user = null;
-                using (var dbEntry = new SportsStoreContext())
-                {
-                    user = dbEntry.Users.FirstOrDefault(u => u.Email.ToLower() == model.Login.ToLower() && u.Password == model.Password);
-                }
+                var userManager = HttpContext.GetOwinContext().GetUserManager<CustomUserManager>();
+                var authManager = HttpContext.GetOwinContext().Authentication;
+
+                User user = userManager.Find(model.Login, model.Password);
                 if (user != null)
                 {
-                    FormsAuthentication.SetAuthCookie(user.Email, true);
-                    return RedirectToAction("List", "Product");
-                }
-                else
-                {
-                    ModelState.AddModelError("", "Error. Possible incorrect login or password.");
+                    var ident = userManager.CreateIdentity(user,
+                        DefaultAuthenticationTypes.ApplicationCookie);
+                    authManager.SignIn(
+                        new AuthenticationProperties { IsPersistent = false }, ident);
+                    return Redirect(/*model.ReturnUrl ??*/ Url.Action("List", "Product"));
                 }
             }
+            ModelState.AddModelError("", "Invalid username or password");
             return View(model);
         }
         [Route("Registration")]
@@ -46,48 +47,58 @@ namespace WebUI.Controllers
             return View();
         }
         [HttpPost]
-        [ValidateAntiForgeryToken]
         [Route("Registration")]
+        [ValidateAntiForgeryToken]
         public ActionResult Register(RegisterModel model)
         {
             if (ModelState.IsValid)
             {
-                User user = null;
-                using (var dbEntry = new SportsStoreContext())
-                {
-                    user = dbEntry.Users.FirstOrDefault(u => u.Email.ToLower() == model.Login.ToLower());
-                }
-                if (user == null)
-                {
-                    using (var dbEntry = new SportsStoreContext())
-                    {
-                        dbEntry.Users.Add(new User { Email = model.Login, Password = model.Password, PhoneNumber = model.PhoneNumber, Age = model.Age, RoleId = (int)DefaultRoles.User });
-                        dbEntry.SaveChanges();
+                var userManager = HttpContext.GetOwinContext().GetUserManager<CustomUserManager>();
+                var authManager = HttpContext.GetOwinContext().Authentication;
 
-                        user = dbEntry.Users.Where(u => u.Email.ToLower() == model.Login.ToLower() && u.Password == model.Password).FirstOrDefault();
-                    }
-                    if (user != null)
-                    {
-                        FormsAuthentication.SetAuthCookie(user.Email, true);
-                        return RedirectToAction("List", "Product");
-                    }
-                }
-                else
+                var user = new User { UserName = model.Email, Email = model.Email };
+                var result = userManager.Create(user, model.Password);
+                if (result.Succeeded)
                 {
-                    ModelState.AddModelError("", "Error. A user with this name already exists.");
+                    var ident = userManager.CreateIdentity(user,
+                        DefaultAuthenticationTypes.ApplicationCookie);
+                    authManager.SignIn(
+                        new AuthenticationProperties { IsPersistent = false }, ident);
+                    return Redirect(Url.Action("List", "Products"));
                 }
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError("", error);
+                }
+                return View(model);
             }
-
+            ModelState.AddModelError("", "Something went wrong");
             return View(model);
         }
         public ActionResult Logoff()
         {
-            FormsAuthentication.SignOut();
+            AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
             return RedirectToAction("List", "Product");
         }
         public PartialViewResult Authentication()
         {
             return PartialView();
+        }
+
+        private IAuthenticationManager AuthenticationManager
+        {
+            get
+            {
+                return HttpContext.GetOwinContext().Authentication;
+            }
+        }
+
+        private void AddErrors(IdentityResult result)
+        {
+            foreach (var error in result.Errors)
+            {
+                ModelState.AddModelError("", error);
+            }
         }
     }
 }

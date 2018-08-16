@@ -12,7 +12,7 @@ namespace WebUI
     {
         protected void Application_Start()
         {
-            Database.SetInitializer(new UserDbInitializer());
+            //Database.SetInitializer(new UserDbInitializer());
 
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
@@ -24,20 +24,21 @@ namespace WebUI
     {
         protected override void Seed(SportsStoreContext db)
         {
-            Role admin = new Role { Name = "Admin" };
-            Role user = new Role { Name = "User" };
-            Role moderator = new Role { Name = "Moderator" };
-            User adminUser = new User {
-                Email = "admin",
-                Password = "admin",
-                Age = 21,
-                PhoneNumber = "+79531801740",
-                Role = admin
-            };
-            db.Roles.Add(admin);
-            db.Roles.Add(moderator);
-            db.Roles.Add(user);
-            db.Users.Add(adminUser);
+            //Role admin = new Role { Name = "Admin" };
+            //Role user = new Role { Name = "User" };
+            //Role moderator = new Role { Name = "Moderator" };
+            //User adminUser = new User {
+            //    Email = "admin",
+            //    Password = "admin",
+            //    Age = 21,
+            //    PhoneNumber = "+79531801740",
+            //    Role = admin
+            //};
+            //db.Roles.Add(admin);
+            //db.Roles.Add(moderator);
+            //db.Roles.Add(user);
+            //db.Users.Add(adminUser);
+
             db.Products.Add(new Product() {
                 Name = "Product1",
                 Description = "DescriptionProduct1",

@@ -15,7 +15,7 @@ namespace WebUI.Models
     {
         [Required]
         [RegularExpression(EmailRegularExpression, ErrorMessage ="Use normal email adress")]
-        public string Login { get; set; }
+        public string Email { get; set; }
         [Required]
         [DataType(DataType.Password)]
         public string Password { get; set; }
