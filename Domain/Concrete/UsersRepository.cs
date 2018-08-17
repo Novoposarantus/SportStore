@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Data.Entity;
+using System.Web;
 
 namespace Domain.Concrete
 {
@@ -16,6 +17,7 @@ namespace Domain.Concrete
 
             return dbEntry.Purchases.Where(p => p.UserId == userId).Include(p=>p.Products);
         }
+
 
         public void ChangeRole(string userName, string role)
         {

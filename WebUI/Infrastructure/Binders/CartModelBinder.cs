@@ -6,7 +6,6 @@ namespace WebUI.Infrastructure.Binders
 {
     public class CartModelBinder : IModelBinder
     {
-        const string sessionKey = "Cart";
         public object BindModel(ControllerContext controllerContext , ModelBindingContext bindingContext)
         {
             if (controllerContext.HttpContext.Session != null)

@@ -1,4 +1,6 @@
-﻿@model Domain.Entities.Product
+﻿@using WebUI.UserHelpers;
+
+@model Domain.Entities.Product
 
 <div class="well">
     @if (Model.ImageData != null)
@@ -21,15 +23,20 @@
             <input type="submit" class="btn btn-success" value="Add to cart" />
         </div>
     }
-    @if (User.Identity.IsAuthenticated && (User.IsInRole("admin") || User.IsInRole("moderator")))
+    @if (User.Identity.IsAuthenticated)
     {
-        
-        @Html.ActionLink("Edit","Edit","Admin", new { Model.ProductID }, new { @class = "btn btn-success pull-right" })
-        using (Html.BeginForm("Delete", "Admin", new { Model.ProductID }))
+        if (User.HadPermission("AdminControllerEditProduct"))
         {
+            @Html.ActionLink("Edit", "EditProduct", "Admin", new { Model.ProductID }, new { @class = "btn btn-success pull-right" })
+        }
+        if (User.HadPermission("AdminControllerDeleteProduct"))
+        {
+            using (Html.BeginForm("DeleteProduct", "Admin", new { Model.ProductID }))
+            {
             <div class="pull-right">
                 <input type="submit" class="btn btn-success" value="Delete" />
             </div>
+            }
         }
     }
     <span class="lead"> @Model.Description</span>

@@ -45,7 +45,7 @@ namespace UnitTests
             var target = new AdminController(mock.Object, null);
             var product = new Product { Name = "Test" };
 
-            ActionResult result = target.Edit(product);
+            ActionResult result = target.EditProduct(product);
 
             mock.Verify(m => m.SaveProduct(product));
             Assert.IsNotInstanceOfType(result, typeof(ViewResult));
@@ -58,7 +58,7 @@ namespace UnitTests
             var product = new Product { Name = "Test" };
             target.ModelState.AddModelError("error", "error");
 
-            ActionResult result = target.Edit(product);
+            ActionResult result = target.EditProduct(product);
 
             mock.Verify(m => m.SaveProduct(It.IsAny<Product>()), Times.Never());
             Assert.IsInstanceOfType(result, typeof(ViewResult));

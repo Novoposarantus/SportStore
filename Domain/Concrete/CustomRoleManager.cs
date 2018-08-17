@@ -16,7 +16,7 @@ namespace Domain.Concrete
         }
 
         public static CustomRoleManager Create(
-            IdentityFactoryOptions<CustomUserManager> options, IOwinContext context)
+            IdentityFactoryOptions<CustomRoleManager> options, IOwinContext context)
         {
             var manager = new CustomRoleManager(
                 new RoleStore<Role>(context.Get<SportsStoreContext>()));

@@ -4,7 +4,7 @@ using Domain.Concrete;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin;
-using Microsoft.AspNet.Identity.EntityFramework;
+using WebUI.Permissions;
 
 namespace WebUI.App_Start
 {
@@ -14,6 +14,8 @@ namespace WebUI.App_Start
         {
             app.CreatePerOwinContext(SportsStoreContext.Create);
             app.CreatePerOwinContext<CustomUserManager>(CustomUserManager.Create);
+            app.CreatePerOwinContext<CustomRoleManager>(CustomRoleManager.Create);
+            PermissionsManager.UpdateListPermissions();
 
             app.UseCookieAuthentication(new CookieAuthenticationOptions
             {

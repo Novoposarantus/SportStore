@@ -12,8 +12,7 @@ namespace Domain.Concrete
         : base(store)
         {
         }
-
-        // this method is called by Owin therefore best place to configure your User Manager
+        
         public static CustomUserManager Create(
             IdentityFactoryOptions<CustomUserManager> options, IOwinContext context)
         {

@@ -8,6 +8,7 @@ namespace Domain.Entities
     {
         public DbSet<Product> Products { get; set; }
         public DbSet<Purchase> Purchases { get; set; }
+        public DbSet<Permission> Permissions { get; set; }
 
         public SportsStoreContext()
             : base("SportsStoreContext", throwIfV1Schema: false)

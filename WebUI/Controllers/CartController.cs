@@ -3,7 +3,7 @@ using Domain.Entities;
 using WebUI.Models;
 using System.Linq;
 using System.Web.Mvc;
-using WebUI.Infrastructure.CustomAttributes.ExceptionAttributes;
+using WebUI.Infrastructure.CustomAttributes;
 
 namespace WebUI.Controllers
 {

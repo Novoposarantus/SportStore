@@ -6,7 +6,7 @@ using System.Web;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
-using System.Threading.Tasks;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace WebUI.Controllers
 {
@@ -56,14 +56,16 @@ namespace WebUI.Controllers
                 var userManager = HttpContext.GetOwinContext().GetUserManager<CustomUserManager>();
                 var authManager = HttpContext.GetOwinContext().Authentication;
 
-                var user = new User { UserName = model.Email, Email = model.Email };
+                var user = new User { UserName = model.Email, Email = model.Email, Age = model.Age, PhoneNumber = model.PhoneNumber};
                 var result = userManager.Create(user, model.Password);
                 if (result.Succeeded)
                 {
+                    //var identityClaim = new IdentityUserClaim {ClaimType = "Permission", ClaimValue = model. }
                     var ident = userManager.CreateIdentity(user,
                         DefaultAuthenticationTypes.ApplicationCookie);
                     authManager.SignIn(
                         new AuthenticationProperties { IsPersistent = false }, ident);
+
                     return Redirect(Url.Action("List", "Products"));
                 }
                 foreach (var error in result.Errors)

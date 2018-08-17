@@ -26,7 +26,7 @@
                     <td class="text-center">@item.Email</td>
                     <td class="text-center">@item.PhoneNumber</td>
                     <td class="text-center">@item.Age</td>
-                    <td class="text-left">@item.Role.Name
+                    @*<td class="text-left">@item.Role.Name
                     @if (item.Role.Id != (int)DefaultRoles.Admin)
                     {
                         if (item.Role.Id == (int)DefaultRoles.Moderator)
@@ -44,7 +44,7 @@
                             }
                         }
                     }
-                </td>
+                </td>*@
             </tr>
         }
         </table>
